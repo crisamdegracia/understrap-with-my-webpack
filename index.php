@@ -31,7 +31,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		<main class="site-main " id="main">
 
-			<div class="main__content--container">
+			<div class="site-main__container">
 				<?php
 				if ( have_posts() ) {
 					// Start the Loop.
@@ -44,10 +44,13 @@ $container = get_theme_mod( 'understrap_container_type' );
 						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 						 */
 						get_template_part( 'loop-templates/content', get_post_format() );
+
+						
 					}
 				} else {
 					get_template_part( 'loop-templates/content', 'none' );
 				}
+
 				?>
 
 			</div><!-- .row -->

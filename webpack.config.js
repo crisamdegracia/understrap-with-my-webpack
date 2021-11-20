@@ -35,7 +35,7 @@ module.exports = {
 					// 	// }
 
 					// },
-
+					'postcss-loader',
 					'sass-loader' // compiles Sass to CSS
 
 				]
@@ -72,7 +72,8 @@ module.exports = {
 			protocol: "http",
 			hostname: "understraptest.local",
 			appendScriptTag: true,
-		}) // Live reload. need pa lagyan ng script sa footer
+		}), // Live reload. need pa lagyan ng script sa footer
+		require('autoprefixer')
 	],
 
 
