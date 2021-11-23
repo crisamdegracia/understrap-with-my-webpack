@@ -20,11 +20,9 @@ $container = get_theme_mod( 'understrap_container_type' );
 ?>
 
 
-<div class="wrapper" id="index-wrapper">
+<div class="wrapper skwaku skwama" id="index-wrapper">
 
 	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
-
-
 
 		<!-- Do the left sidebar check and opens the primary div -->
 		<?php /* get_template_part( 'global-templates/left-sidebar-check' );  */?>
@@ -54,6 +52,83 @@ $container = get_theme_mod( 'understrap_container_type' );
 				?>
 
 			</div><!-- .row -->
+
+
+			<div class="second-container">
+				<?php 
+				
+				$query  = new WP_Query(array(
+					// 'category_name' => 'fashion',
+					// 'cat' => get_the_category($query->ID),
+					'post_status' => 'publish',
+					'post_type' => 'post',
+					'posts_per_page' => 6,
+					)); ?>
+
+				<ul class="nav nav-tabs">
+
+
+
+					<?php
+					
+					function catTitleFix($name){
+						
+					$catFirstLetterSmall = strtolower( $name );
+					$catChangeSpace = str_replace(' ', '-', $catFirstLetterSmall);
+						
+					return $catChangeSpace; 
+					}
+				while( $query->have_posts() ){
+					$query->the_post();
+					
+
+					foreach((get_the_category()) as $category){
+
+					// $catFirstLetterSmall = strtolower( $category->name );
+					// $catChangeSpace = str_replace(' ', '_', $catFirstLetterSmall);
+		
+					?>
+
+					<li class="nav-item">
+						<a class="nav-link nav-link-trigger active  post-<?php echo $post->ID ?>  " id="<?php echo catTitleFix($category->name) ?>-tab"
+							#<?php echo catTitleFix($category->name)  ?>><?php echo $category->name ?></a>
+					</li>
+
+					<?php
+				}	 // foreach
+						
+					// echo category_description($category);
+
+					?>
+
+					<?php
+					} // while ?>
+				</ul>
+
+				<div class="tab-content" id="myTabContent">
+					<?php
+							while($query->have_posts()){
+							$query->the_post();
+
+							foreach((get_the_category()) as $category){
+							?>
+					<div class="tab-pane-trigger fade show  post-<?php echo $post->ID ?> " id="<?php echo catTitleFix($category->name) ?>" role="tabpanel"
+						aria-labelledby="<?php echo catTitleFix($category->name)  ?>-tab">
+						<p><?php the_content() ?></p>
+					</div>
+
+					<?php 	 ?>
+
+
+					<?php		
+							} //foreach
+						} //while
+			 	?>
+				</div>
+
+
+			</div>
+
 		</main><!-- #main -->
 
 		<!-- The pagination component -->
@@ -65,6 +140,9 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 
 	</div><!-- #content -->
+
+
+
 
 </div><!-- #index-wrapper -->
 
